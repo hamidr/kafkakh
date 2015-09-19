@@ -1,0 +1,133 @@
+
+<div ng-controller="UserCtrl" ng-init='init(<%= @polls.to_json %>)'>
+  <div>
+    <nav>
+      <ul class="pager">
+        <li class="previous"><a ng-click="getOwnPolls(-1)"><span aria-hidden="true">&larr;</span> Older</a></li>
+        <li class="next"><a ng-click="getOwnPolls(1)">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      </ul>
+    </nav>
+
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">My own polls:</div>
+
+      <!-- Table -->
+      <table class="table">
+        <thead>
+          <th>ID</th>
+          <th>Vote hits!</th>
+          <th>Title</th>
+        </thead>
+        <tbody >
+        <tr ng-repeat="poll in own_polls">
+          <td><a href="/polls/{{poll.id}}">{{poll.id}}</a></td>
+          <td>{{poll.total_count}}</td>
+          <td>{{poll.title}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>  
+
+  <br>
+
+  <div>
+    <nav>
+      <ul class="pager">
+        <li class="previous"><a ng-click="getVotedPolls(-1)"><span aria-hidden="true">&larr;</span> Older</a></li>
+        <li class="next"><a ng-click="getVotedPolls(1)">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      </ul>
+    </nav>
+
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Voted polls:</div>
+
+      <!-- Table -->
+      <table class="table">
+        <thead>
+          <th>ID</th>
+          <th>Vote hits!</th>
+          <th>Title</th>
+        </thead>
+        <tbody >
+        <tr ng-repeat="poll in voted_polls">
+          <td><a href="/polls/{{poll.id}}">{{poll.id}}</a></td>
+          <td>{{poll.total_count}}</td>
+          <td>{{poll.title}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>  
+  </div>  
+
+
+
+  <!-- Contact Section -->
+  <section id="contact">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+
+          <div class="panel panel-default">
+            <div class="panel-body">
+
+              <center><label>Create a poll:</label></center>
+              <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">Title:</span>
+                <input placeholder="This is the title!" maxlength="150" type="text" ng-model="form.poll.title" class="form-control" required>
+              </div>
+
+              <br>
+              <div class="input-group">
+                <span class="input-group-addon">Description:</span>
+                <textarea class="form-control" ng-model="form.poll.description" rows="3"></textarea>
+              </div>
+
+              <br>
+              <div class="input-group">
+                <span class="input-group-addon">Tags</span>
+                <input placeholder="tag1, tag2, tag3" class="form-control" ng-model="form.poll.tags"></input>
+              </div>
+
+              <br>
+              <div class="col-lg-8 col-lg-offset-2">
+                <div class="input-group" ng-repeat="index in range(0, form.poll.options.length)">
+                  <span class="input-group-addon">Option {{index + 1}}:</span>
+                  <input maxlength="150" type="text" ng-model="form.poll.options[index]"class="form-control" required>
+                </div>
+              </div>
+
+              <br>
+            </div>
+            <center>
+            <div >
+              <button class="btn btn-primary" ng-click="form.submit()">Create!</button>
+            </div>
+          </center>
+          <br>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Yayyyy! Here is your poll:</h3>
+    </div>
+    <div class="modal-body">
+      <%= link_to "Click to open the vote!!!", "#{polls_path}/{{poll.id}}" %> 
+    </div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    </div>
+  </script> 
+
+</div>

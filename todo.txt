@@ -1,0 +1,3 @@
+create poll and return a link to share!
+remove a poll if you are the owner!
+remove a option

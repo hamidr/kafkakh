@@ -1,0 +1,34 @@
+<div ng-controller="PollCtrl" ng-init='init(<%= @poll.to_json %>)'>
+
+  <div class="jumbotron">
+    <div>
+      <h2>{{data.title}}</h2>
+      <br>
+      <p>{{data.description}}</p>
+    </div>
+
+    <ul class="list-group"  >
+      <li class="list-group-item" ng-repeat="option in data.options" 
+      <% if user_signed_in? %>
+        ng-class="{'list-group-item-warning': data.voted_to == option.id}" ng-click="vote(option.id)"
+      <%end%> >
+      {{option.title}}<br>
+      <span class="badge .col-xs-6" >{{option.count}}</span>
+      <div class="progress">
+        <div class="progress-bar"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style="width: {{((1 / data.total_votes) * option.count * 100)}}%">
+        </div>
+      </div>
+
+      </li>
+    </ul>
+
+    <div class="well well-sm" ng-if="data.tags.length != 0">
+      {{data.tags.join(',')}} </div>
+    </div>
+  </div>
+
+</div>

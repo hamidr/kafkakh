@@ -1,0 +1,72 @@
+<div ng-controller="HomeCtrl" ng-init='init(<%= @polls.to_json %>)'>
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">My own polls:</div>
+
+    <!-- Table -->
+    <table class="table">
+      <thead>
+        <th>ID</th>
+        <th>Vote hits!</th>
+        <th>Title</th>
+      </thead>
+      <tbody >
+      <tr ng-repeat="poll in polls">
+        <td><a href="/polls/{{poll.id}}">{{poll.id}}</a></td>
+        <td>{{poll.total_count}}</td>
+        <td>{{poll.title}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <% if user_signed_in? %>
+
+  <div class="panel panel-default" ng-if="searcheds">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Searched:</div>
+
+    <!-- Table -->
+    <table class="table">
+      <thead>
+        <th>ID</th>
+        <th>Vote hits!</th>
+        <th>Title</th>
+      </thead>
+      <tbody >
+      <tr ng-repeat="poll in searcheds">
+        <td><a href="/polls/{{poll.id}}">{{poll.id}}</a></td>
+        <td>{{poll.total_count}}</td>
+        <td>{{poll.title}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav>
+    <ul class="pager">
+      <li class="previous"><a ng-click="search(-1)"><span aria-hidden="true">&larr;</span> Older</a></li>
+      <li class="next"><a ng-click="search(1)">Newer <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+  </nav>
+
+  <div class="form-inline center-block">
+    <p>
+    <div class="input-group">
+      <span class="input-group-addon">Title</span>
+      <input type="text" class="form-control" placeholder="That poll!" ng-model="search_attrs.title">
+    </div>
+
+    <div class="input-group">
+      <span class="input-group-addon">Tags</span>
+      <input type="text" class="form-control" placeholder="tag1, tag2, tag3" aria-describedby="basic-addon1" ng-model="search_attrs.tags">
+    </div>
+
+    <button class="btn btn-primary" ng-click="search(0)">Search for it!</button> 
+    </p>
+  </div>
+
+  <% end %>
+
+</div>  
+
