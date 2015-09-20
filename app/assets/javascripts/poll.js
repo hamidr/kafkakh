@@ -1,6 +1,5 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-//=require directives/bars_chart
 
 Kafka.controller('PollCtrl', ['$scope', '$http', function($scope, $http) {
 

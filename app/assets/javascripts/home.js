@@ -28,7 +28,7 @@ Kafka.controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
 
     params = {
       title: search_attrs.title,
-      tags: search_attrs.tags.split(','),
+      tags: search_attrs.tags.split(' '),
       page: search_attrs.page + page
     };
 
@@ -49,7 +49,6 @@ Kafka.controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
       $scope.search_attrs.page += page;
 
     }, function(response) {
-      console.log(response);
       alert("Something is wrong!");
     });
   };

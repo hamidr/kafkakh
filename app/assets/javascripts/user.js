@@ -1,9 +1,9 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-//= require angular-ui-bootstrap-tpls
 
 Kafka.controller('UserCtrl', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
 
+  $scope.hide_create = true;
   $scope.init = function(data) {
     $scope.voted_polls = data.voted_polls;
     $scope.own_polls = data.own_polls;
@@ -61,7 +61,6 @@ Kafka.controller('UserCtrl', ['$scope', '$http', '$modal', function($scope, $htt
     $http(data)
       .then(function(response) {
         if (response.data.length == 0) {
-          alert("That's it!");
           return;
         }
         $scope.voted_polls =  response.data;
@@ -73,15 +72,17 @@ Kafka.controller('UserCtrl', ['$scope', '$http', '$modal', function($scope, $htt
 
 
   var submit = function() {
-
     form = $scope.form;
     poll = form.poll;
 
+    if (!poll.title || !poll.tags || poll.title == '' || poll.options.length == 1)
+      return alert("Fill the form please!");
+
+    poll.tags = poll.tags.split(' ');
+
     $http.post('/polls', poll).then(function(response) {
       $scope.created_poll = response.data;
-      console.log('polllll');
       $scope.open(response.data);
-      console.log(response.data);
     }, function(response) {
       alert("Something is wrong! Are you connected to the internet?");
     });
@@ -103,22 +104,18 @@ Kafka.controller('UserCtrl', ['$scope', '$http', '$modal', function($scope, $htt
 
   $scope.open = function (poll) {
 
-      console.log('polllll');
-      console.log(poll);
     var modalInstance = $modal.open({
       animation: true,
       templateUrl: 'myModalContent.html',
       controller: function($scope, $modalInstance) {
         $scope.poll = poll;
         $scope.ok = function() {
-          console.log(poll);
           $modalInstance.close();
         }
       }
     });
 
     modalInstance.result.then(function () {
-      console.log("wwgsfsd");
     }, function () {
     });
   };

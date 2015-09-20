@@ -1,43 +1,55 @@
 <div ng-controller="HomeCtrl" ng-init='init(<%= @polls.to_json %>)'>
+  <%if user_signed_in? %>
+    <tabset>
+    <tab heading="بیشترین نظر شده ها!">
+    <br>
+<% end %>
   <div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading">My own polls:</div>
+
+  <%if !user_signed_in? %>
+    <div class="panel-heading">بیشترین نظر شده ها!</div>
+  <%end%>
 
     <!-- Table -->
     <table class="table">
       <thead>
-        <th>ID</th>
-        <th>Vote hits!</th>
-        <th>Title</th>
+        <th>شماره</th>
+        <th>عدد نظردهندگان</th>
+        <th>موضوع</th>
+        <th>تگ ها</th>
       </thead>
       <tbody >
       <tr ng-repeat="poll in polls">
-        <td><a href="/polls/{{poll.id}}">{{poll.id}}</a></td>
-        <td>{{poll.total_count}}</td>
-        <td>{{poll.title}}</td>
+        <td class="col-md-1"><a href="/polls/{{poll.id}}">{{poll.id}}</a></td>
+        <td class="col-md-2">{{poll.total_count}}</td>
+        <td class="col-md-7" >{{poll.title}}</td>
+        <td class="col-md-4" >{{poll.tags.join(' ')}}</td>
       </tr>
       </tbody>
     </table>
   </div>
 
   <% if user_signed_in? %>
+    </tab>
+    <tab heading="جستجو شده ها">
+<br>
 
   <div class="panel panel-default" ng-if="searcheds">
-    <!-- Default panel contents -->
-    <div class="panel-heading">Searched:</div>
 
     <!-- Table -->
     <table class="table">
       <thead>
-        <th>ID</th>
-        <th>Vote hits!</th>
-        <th>Title</th>
+        <th>شماره</th>
+        <th>عدد نظردهندگان</th>
+        <th>موضوع</th>
+        <th>تگ ها</th>
       </thead>
       <tbody >
       <tr ng-repeat="poll in searcheds">
-        <td><a href="/polls/{{poll.id}}">{{poll.id}}</a></td>
-        <td>{{poll.total_count}}</td>
-        <td>{{poll.title}}</td>
+        <td class="col-md-1"><a href="/polls/{{poll.id}}">{{poll.id}}</a></td>
+        <td class="col-md-2">{{poll.total_count}}</td>
+        <td class="col-md-7" >{{poll.title}}</td>
+        <td class="col-md-4" >{{poll.tags.join(', ')}}</td>
       </tr>
       </tbody>
     </table>
@@ -45,26 +57,29 @@
 
   <nav>
     <ul class="pager">
-      <li class="previous"><a ng-click="search(-1)"><span aria-hidden="true">&larr;</span> Older</a></li>
-      <li class="next"><a ng-click="search(1)">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      <li class="next"><a ng-click="search(1)">جدیدتر <span aria-hidden="true">&larr;</span></a></li>
+      <li class="previous"><a ng-click="search(-1)"><span aria-hidden="true">&rarr;</span> قدیمی تر</a></li>
     </ul>
   </nav>
 
   <div class="form-inline center-block">
     <p>
     <div class="input-group">
-      <span class="input-group-addon">Title</span>
-      <input type="text" class="form-control" placeholder="That poll!" ng-model="search_attrs.title">
+      <span class="input-group-addon">موضوع</span>
+      <input type="text" class="form-control" placeholder="اون نظر سنجیه!" ng-model="search_attrs.title">
     </div>
 
     <div class="input-group">
-      <span class="input-group-addon">Tags</span>
-      <input type="text" class="form-control" placeholder="tag1, tag2, tag3" aria-describedby="basic-addon1" ng-model="search_attrs.tags">
+      <span class="input-group-addon">تگ ها</span>
+      <input type="text" class="form-control" placeholder="تگ۱ تگ۲ تگ۳" aria-describedby="basic-addon1" ng-model="search_attrs.tags">
     </div>
 
-    <button class="btn btn-primary" ng-click="search(0)">Search for it!</button> 
+    <button class="btn btn-primary" ng-click="search(0)">بگرد!</button> 
     </p>
   </div>
+
+  </tab>
+  </tabset>
 
   <% end %>
 
