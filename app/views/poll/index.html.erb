@@ -2,11 +2,12 @@
 
   <div class="jumbotron">
     <div>
-      <h2>{{data.title}}</h2>
+      <h3>{{data.title}}</h3>
       <br>
       <p>{{data.description}}</p>
     </div>
 
+    <nvd3 options="options" data="chartData"></nvd3>
     <ul class="list-group"  >
       <li class="list-group-item" ng-repeat="option in data.options" 
       <% if user_signed_in? %>
@@ -26,9 +27,10 @@
       </li>
     </ul>
 
-    <div class="well well-sm" ng-if="data.tags.length != 0">
-      {{data.tags.join(' ')}} </div>
-    </div>
+    <div class="well well-sm"> تگ ها: {{data.tags.join(' ')}} </div>
+    <br>
+    <div>تعداد آرا: {{data.total_votes}}</div>
+  </div>
   </div>
 
 </div>

@@ -30,7 +30,7 @@ class PollController < ApplicationController
 
   def create
     title =           param! :title, String, required: true
-    description =     param! :description, String, required: true
+    description =     param! :description, String, required: false 
 
     tags = param! :tags, Array, required: true, default: [] do |array, index|
       array.param! index, String, requured: true

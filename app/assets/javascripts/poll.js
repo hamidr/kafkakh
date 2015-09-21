@@ -5,10 +5,10 @@ Kafka.controller('PollCtrl', ['$scope', '$http', function($scope, $http) {
 
   $scope.init = function(data) {
     $scope.data = data;
+    makeChartData();
   };
 
   $scope.vote = function(id) {
-
     if ($scope.data.voted_to == id)
       return;
 
@@ -27,6 +27,7 @@ Kafka.controller('PollCtrl', ['$scope', '$http', function($scope, $http) {
         if (id == value.id)
           return value.count += 1;
       });
+      makeChartData();
     }, function(response) {
       alert("You can NOT vote!");
     });
@@ -49,11 +50,46 @@ Kafka.controller('PollCtrl', ['$scope', '$http', function($scope, $http) {
      });
 
      callback();
+
+     makeChartData();
    }, function(response) {
      alert("You cant unvote!");
    });
 
   }
+
+  var makeChartData = function() {
+    $scope.chartData = $scope.data.options.map(function(value) {
+        return {
+        id: value.id,
+        count: value.count
+      }
+    });
+  };
+
+
+  $scope.options = {
+    chart: {
+      type: 'pieChart',
+      height: 500,
+      x: function(d){
+        return d.id;
+      },
+      y: function(d) {
+        return d.count;
+      },
+      transitionDuration: 500,
+      labelThreshold: 0.01,
+      legend: {
+        margin: {
+          top: 5,
+          right: 35,
+          bottom: 5,
+          left: 0
+        }
+      }
+    }
+  };
 
 }]);
 

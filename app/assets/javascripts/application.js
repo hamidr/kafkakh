@@ -13,9 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require angular
 //= require angular-ui-bootstrap
 //= require angular-ui-bootstrap-tpls
 
-Kafka = angular.module('kafka', ['ui.bootstrap']);
+
+Kafka = angular.module('kafka', ['ui.bootstrap', 'nvd3']);
 

@@ -91,15 +91,10 @@ Kafka.controller('UserCtrl', ['$scope', '$http', '$modal', function($scope, $htt
   $scope.form = {
     poll: {
       options: [''],
+      tags: ''
     },
 
     submit: submit,
-    add_option: function(title) {
-      this.poll.options.push(title);
-    },
-    remove_option: function(index) {
-      delete this.poll.options[index];
-    }
   };
 
   $scope.open = function (poll) {

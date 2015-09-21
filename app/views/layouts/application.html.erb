@@ -7,18 +7,21 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <title>کافکاخ</title>
 
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= stylesheet_link_tag controller_name, media: 'all' %>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/d3.min.js"></script>
+    <script src="/js/nv.d3.min.js"></script>
+    <script src="/js/angular-nvd3.min.js"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag controller_name %>
 
     <link href="/css/bootstrap-rtl.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/nv.d3.min.css" rel="stylesheet" type="text/css">
 
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
