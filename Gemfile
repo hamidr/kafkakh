@@ -19,6 +19,7 @@ gem 'rake', '~> 0.9.6'
 group :development, :test do
   gem 'minitest'
   gem 'thor'
+  gem 'byebug'
 end
 
 group :production, :postgresql do

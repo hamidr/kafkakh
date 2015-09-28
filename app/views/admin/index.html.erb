@@ -1,0 +1,82 @@
+<div ng-controller="AdminCtrl" ng-init='init(<%= @users.to_json %>)'>
+  <br>
+  <tabset>
+  <tab heading="Users">
+  <div class="panel panel-default">
+
+    <div class="panel-heading">Users</div>
+
+    <!-- Table -->
+    <table class="table">
+      <thead>
+        <th>ID</th>
+        <th>Active?</th>
+        <th>Role</th>
+        <th>Email</th>
+        <th>Action</th>
+      </thead>
+      <tbody >
+      <tr ng-repeat="user in users">
+        <td class="col-md-1">{{user.id}}</td>
+        <td class="col-md-2" >{{user.is_active}}</td>
+        <td class="col-md-2" >{{user.role}}</td>
+        <td class="col-md-7" >{{user.email}}</td>
+        <td>
+          <button class="btn btn-success" ng-if="!user.is_active" ng-click="activateUser(user.id)">Activate</button>
+          <button class="btn btn-danger" ng-if="user.is_active" ng-click="deactivateUser(user.id)">Deactivate</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav>
+    <ul class="pager">
+      <li class="next"><a ng-click="getUsers(1)">جدیدتر <span aria-hidden="true">&larr;</span></a></li>
+      <li class="previous"><a ng-click="getUsers(-1)"><span aria-hidden="true">&rarr;</span> قدیمی تر</a></li>
+    </ul>
+  </nav>
+
+  </tab>
+  <tab heading="Reported Polls">
+
+  <div class="panel panel-default">
+
+    <div class="panel-heading">Users</div>
+
+    <!-- Table -->
+    <table class="table">
+      <thead>
+        <th>ID</th>
+        <th>title</th>
+        <th>Total views</th>
+        <th>Total Reports</th>
+      </thead>
+      <tbody >
+      <tr ng-repeat="poll in reporteds">
+        <td class="col-md-1"><a href="/polls/{{poll.id}}">{{poll.id}}</a></td>
+        <td class="col-md-5" >{{poll.title}}</td>
+        <td class="col-md-2" >{{poll.view_count}}</td>
+        <td class="col-md-7" >{{poll.reported}}</td>
+        <td>
+          <button class="btn btn-danger" ng-if="!poll.removed" ng-click="deletePoll(poll.id)">Delete</button>
+          <div ng-if="poll.removed">Deleted!!!</div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav>
+    <ul class="pager">
+      <li class="next"><a ng-click="getReporteds(1)">جدیدتر <span aria-hidden="true">&larr;</span></a></li>
+      <li class="previous"><a ng-click="getReporteds(-1)"><span aria-hidden="true">&rarr;</span> قدیمی تر</a></li>
+    </ul>
+  </nav>
+
+  </tab>
+  </tabset>
+
+
+</div>  
+

@@ -1,6 +1,14 @@
 <div ng-controller="PollCtrl" ng-init='init(<%= @poll.to_json %>)'>
 
   <div class="jumbotron">
+    <div style="direction: ltr">
+      <div ng-if="!reported">
+        <button class="btn btn-primary" ng-click="report()">Report!!!</button> 
+      </div>
+      <div ng-if="reported">
+        Reported!
+      </div>
+    </div>
     <div>
       <h3>{{data.title}}</h3>
       <br>
@@ -30,7 +38,10 @@
     <div class="well well-sm"> تگ ها: {{data.tags.join(' ')}} </div>
     <br>
     <div>تعداد آرا: {{data.total_votes}}</div>
+    <div>
+      بازدید: {{data.view_count}}
+    </div>
   </div>
-  </div>
+</div>
 
 </div>

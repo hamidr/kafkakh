@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   skip_before_filter :verify_authenticity_token, except: :index
 
   def index
-    votes_by_poll_ids = Vote.group(:poll_id).limit(10).count
+    votes_by_poll_ids = Vote.group(:poll_id).limit(10).order('count_all desc').count
     polls = Poll.where(id: votes_by_poll_ids.keys).limit(10)
     @polls = polls.map do |p|
       poll = p.attributes

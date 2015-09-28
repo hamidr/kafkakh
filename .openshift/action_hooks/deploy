@@ -13,10 +13,6 @@ if [ ! -z "$OPENSHIFT_POSTGRESQL_DB_HOST" ]; then
   export RAILS_DB="postgresql"
 fi
 
-if [ ! -z "$OPENSHIFT_MYSQL_DB_HOST" ]; then
-  export RAILS_DB="mysql"
-fi
-
 if [ -z "$RAILS_DB" ]; then
   echo 1>&2
   echo "Could not find the database cartridge.  Please run:" 1>&2
@@ -33,7 +29,13 @@ else
 fi
 
 pushd ${OPENSHIFT_REPO_DIR} > /dev/null
+
 echo "bundle exec rake db:migrate RAILS_ENV=${RAILS_ENV:-production}"
 ruby_with_nodejs_context "bundle exec rake db:migrate RAILS_ENV=${RAILS_ENV:-production}"
+
+echo "bundle exec rake db:seed RAILS_ENV=${RAILS_ENV:-production}"
+ruby_with_nodejs_context "bundle exec rake db:seed RAILS_ENV=${RAILS_ENV:-production}"
+
+
 
 popd > /dev/null

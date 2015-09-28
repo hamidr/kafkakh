@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    request.env['omniauth.origin'] || stored_location_for(resource) || url_for(controller: "/user", action: "index") 
+    return url_for(controller: "/admin", action: "index") if current_user.admin?
+    url_for(controller: "/user", action: "index") 
   end
 end

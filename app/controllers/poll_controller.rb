@@ -7,6 +7,7 @@ class PollController < ApplicationController
 
     id = params[:id]
     poll = Poll.find_pub_by_id!(id)
+    Poll.increment_counter(:view_count, id)
 
     total_votes = 0
     options = poll.options.order(:order)
@@ -53,5 +54,12 @@ class PollController < ApplicationController
   end
 
   def delete
+    id = param! :id, Integer, required: true
+    render json: Poll.destroy_all(user_id: current_user.id, id: id) 
+  end
+
+  def report
+    id = param! :id, Integer, required: true
+    render json: Poll.increment_counter(:reported, id)
   end
 end

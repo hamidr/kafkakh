@@ -56,6 +56,13 @@
                     <li>
                         <a href="/me">صفحه من</a>
                     </li>
+
+                    <% if current_user.admin? %>
+                      <li>
+                      <%= link_to('ادمین', admin_path)  %>
+                      </li>
+                    <% end %>
+
                     <li>
                     <%= link_to('خروج', destroy_user_session_path, :method => :delete) %>
                     </li>
@@ -66,6 +73,7 @@
                     <li>
                     <%= link_to('ورود', new_user_session_path)  %>
                     </li>
+
                     <% end %>
                 </ul>
             </div>

@@ -3,10 +3,22 @@
 
 Kafka.controller('PollCtrl', ['$scope', '$http', function($scope, $http) {
 
+  $scope.reported = false;
   $scope.init = function(data) {
     $scope.data = data;
     makeChartData();
   };
+
+  $scope.report = function() {
+    id = $scope.data.id;
+    $http.post('/polls/'+id+'/report').then(function(response) {
+      $scope.reported = true;
+      alert("reported!");
+    }, function(resposne) {
+      alert('Something bad happend!');
+    });
+  };
+
 
   $scope.vote = function(id) {
     if ($scope.data.voted_to == id)
@@ -61,8 +73,8 @@ Kafka.controller('PollCtrl', ['$scope', '$http', function($scope, $http) {
   var makeChartData = function() {
     $scope.chartData = $scope.data.options.map(function(value) {
         return {
-        id: value.id,
-        count: value.count
+          id: value.id,
+          count: value.count
       }
     });
   };

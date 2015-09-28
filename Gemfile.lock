@@ -38,6 +38,7 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
     builder (3.2.2)
+    byebug (6.0.2)
     devise (3.5.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -155,6 +156,7 @@ DEPENDENCIES
   angularjs-rails
   bcrypt (~> 3.1.7)
   bootstrap-sass
+  byebug
   devise
   jquery-rails
   kaminari

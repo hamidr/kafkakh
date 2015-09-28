@@ -16,7 +16,7 @@ class Poll < ActiveRecord::Base
   enum status: [:pub, :priv]
 
   def self.find_pub_by_id! id
-    Poll.select(:id, :title, :description, :tags).find_by!(status: 'pub', id: id)
+    Poll.select(:id, :view_count, :title, :description, :tags).find_by!(status: statuses[:pub], id: id)
   end
 
   def self.create! **kargs

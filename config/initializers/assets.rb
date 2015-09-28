@@ -8,5 +8,5 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
- files = %w( home user poll sessions registrations sessions )
+ files = %w( home user poll sessions registrations sessions admin )
  Rails.application.config.assets.precompile += files.map {|x| [x+'.js', x+'.css']}.flatten

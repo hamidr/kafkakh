@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   has_many :votes, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  enum role: [:user, :admin]
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :omniauthable, :rememberable, :trackable, :validatable
@@ -22,5 +24,13 @@ class User < ActiveRecord::Base
       uid: access_token.uid ,
       password: Devise.friendly_token[0,20],
     )
+  end
+
+  def self.find_for_database_authentication(warden_conditions)
+    where(warden_conditions).where(is_active: true).first
+  end
+
+  def admin?
+    role == 'admin'
   end
 end
